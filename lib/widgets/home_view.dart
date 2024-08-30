@@ -10,12 +10,17 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  List<int> places = [1, 2];
+  List<int> places = [1, 2,3,4,6];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: const Color(0XFF002D62),
+        onPressed: () {}, // Add your onPressed function here
+        child: Icon(Icons.add,color:  Colors.white,size: 20,),
+      ),
       body: SliderDrawer(
         slider: Container(
           color: const Color(0XFF002D62),
@@ -34,12 +39,12 @@ class _HomeViewState extends State<HomeView> {
           Container(
             height: 120,
             // color: Colors.deepPurple.shade900.withOpacity(0.1),
-            child: Row(
+            child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(
-                  height: 30,
-                  width: 30,
+                  height: 25,
+                  width: 25,
                   child: CircularProgressIndicator(
                     color: Color(0XFF002D62),
                     value: 1 / 3,
@@ -51,18 +56,18 @@ class _HomeViewState extends State<HomeView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 30, top: 20),
+                      padding: EdgeInsets.only(left: 15, top: 20),
                       child: Text(
                         "Planned Trips",
                         style: TextStyle(
-                          fontSize: 50,
+                          fontSize: 40,
                           fontWeight: FontWeight.bold,
                           color: Color(0XFF002D62),
                         ),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(left: 35),
+                      padding: EdgeInsets.only(left: 25),
                       child: Text(
                         "3 of 8 TRIPS",
                         style: TextStyle(
@@ -77,7 +82,7 @@ class _HomeViewState extends State<HomeView> {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.only(top: 10, right: 40, bottom: 30),
+            padding: EdgeInsets.only(top: 10, right: 30, bottom: 10),
             child: Divider(
               thickness: 2,
               indent: 55,
@@ -92,9 +97,8 @@ class _HomeViewState extends State<HomeView> {
                 return Dismissible(
                   direction: DismissDirection.horizontal,
                   onDismissed: (direction) {
-                    setState(() {
-                      places.removeAt(index);
-                    });
+                    places.removeAt(index);
+                    setState(() {});
                   },
                   background: const Row(
                     mainAxisAlignment: MainAxisAlignment.center,
