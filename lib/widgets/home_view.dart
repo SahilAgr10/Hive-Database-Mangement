@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'Task_Widget.dart';
@@ -11,7 +10,8 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-   List<int> places = [1,2];
+  List<int> places = [1, 2];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,8 +20,8 @@ class _HomeViewState extends State<HomeView> {
         slider: Container(
           color: const Color(0XFF002D62),
         ),
-          child: homePageUi()),
-
+        child: homePageUi(),
+      ),
     );
   }
 
@@ -42,7 +42,7 @@ class _HomeViewState extends State<HomeView> {
                   width: 30,
                   child: CircularProgressIndicator(
                     color: Color(0XFF002D62),
-                    value: 1/3,
+                    value: 1 / 3,
                     backgroundColor: Colors.grey,
                   ),
                 ),
@@ -50,58 +50,89 @@ class _HomeViewState extends State<HomeView> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 30,top: 20),
-                    child: Text("Planned Trips",style: TextStyle(
-                        fontSize: 50,fontWeight: FontWeight.bold,color: Color(0XFF002D62),
-                    ),),),
-                  Padding(
-                    padding: const EdgeInsets.only(left: 35),
-                    child: Text("3 of 8 TRIPS",style: TextStyle(
-                      fontSize: 15,fontWeight: FontWeight.w500,
-                    ),),
-                  )
-                ],)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 30, top: 20),
+                      child: Text(
+                        "Planned Trips",
+                        style: TextStyle(
+                          fontSize: 50,
+                          fontWeight: FontWeight.bold,
+                          color: Color(0XFF002D62),
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(left: 35),
+                      child: Text(
+                        "3 of 8 TRIPS",
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
+                    )
+                  ],
+                ),
               ],
             ),
           ),
           const Padding(
-            padding: EdgeInsets.only(top: 10,right: 40,bottom: 30),
-            child: Divider(thickness: 2,indent:55,),
+            padding: EdgeInsets.only(top: 10, right: 40, bottom: 30),
+            child: Divider(
+              thickness: 2,
+              indent: 55,
+            ),
           ),
           Expanded(
-            child: places.isNotEmpty?ListView.builder(
+            child: places.isNotEmpty
+                ? ListView.builder(
               itemCount: places.length,
               itemBuilder: (context, index) {
-                return Dismissible  (
+                final item = places[index];
+                return Dismissible(
                   direction: DismissDirection.horizontal,
-                    onDismissed: (_){
-                      setState(() {
-                        places.removeAt(index);
-                      });
-                    },
-                    background: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(Icons.delete_outline,color: Colors.grey,),
-                        Text("Current Trip is being Deleted",style: TextStyle(color: Colors.grey,),)
-                      ],
-                    ),
-                    key: Key(index.toString()),
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 30,right: 30),
-                      child: const TaskWidget(),
-                    ));
+                  onDismissed: (direction) {
+                    setState(() {
+                      places.removeAt(index);
+                    });
+                  },
+                  background: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.delete_outline,
+                        color: Colors.grey,
+                      ),
+                      Text(
+                        "Current Trip is being Deleted",
+                        style: TextStyle(color: Colors.grey),
+                      )
+                    ],
+                  ),
+                  key: Key(item.toString()),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 30, right: 30),
+                    child: TaskWidget(),
+                  ),
+                );
               },
-            ):const Column(
-              mainAxisAlignment:MainAxisAlignment.center,
+            )
+                : const Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image(image: AssetImage('assets/images/travel01.jpeg')),
+                Image(
+                  image: AssetImage('assets/images/travel01.jpeg'),
+                ),
                 Padding(
                   padding: EdgeInsets.only(top: 20),
-                  child: Text('Currently No Trips are Added',style: TextStyle(
-                    fontSize: 20,fontWeight: FontWeight.w600,color: Colors.black87,
-                  ),),
+                  child: Text(
+                    'Currently No Trips are Added',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.black87,
+                    ),
+                  ),
                 )
               ],
             ),
@@ -111,5 +142,3 @@ class _HomeViewState extends State<HomeView> {
     );
   }
 }
-
-
