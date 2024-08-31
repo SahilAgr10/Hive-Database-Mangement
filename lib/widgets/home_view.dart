@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
+import 'package:hive_database_management/widgets/Custom_Menu.dart';
+import 'Custome_Appbar.dart';
 import 'Task_Widget.dart';
 
 class HomeView extends StatefulWidget {
@@ -10,21 +12,24 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
-  List<int> places = [1, 2,3,4,6];
+  List<int> places = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
-        backgroundColor: const Color(0XFF002D62),
-        onPressed: () {}, // Add your onPressed function here
+        backgroundColor: const Color(0XFF00001a),
+        onPressed: () {
+          places.add(1);
+          setState(() {});
+        }, // Add your onPressed function here
         child: Icon(Icons.add,color:  Colors.white,size: 20,),
       ),
       body: SliderDrawer(
-        slider: Container(
-          color: const Color(0XFF002D62),
-        ),
+        isDraggable: false,
+        appBar: const CustomAppBar(),
+        slider: const CustomMenu(),
         child: homePageUi(),
       ),
     );
@@ -37,7 +42,7 @@ class _HomeViewState extends State<HomeView> {
       child: Column(
         children: [
           Container(
-            height: 120,
+            height: 110,
             // color: Colors.deepPurple.shade900.withOpacity(0.1),
             child: const Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -71,7 +76,8 @@ class _HomeViewState extends State<HomeView> {
                       child: Text(
                         "3 of 8 TRIPS",
                         style: TextStyle(
-                          fontSize: 15,
+                          fontSize: 12,
+                          color: Colors.grey,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -82,7 +88,7 @@ class _HomeViewState extends State<HomeView> {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.only(top: 10, right: 30, bottom: 10),
+            padding: EdgeInsets.only(top: 10, right: 30,bottom: 20),
             child: Divider(
               thickness: 2,
               indent: 55,
@@ -105,17 +111,17 @@ class _HomeViewState extends State<HomeView> {
                     children: [
                       Icon(
                         Icons.delete_outline,
-                        color: Colors.grey,
+                        color: Color(0Xff4A0404),
                       ),
                       Text(
                         "Current Trip is being Deleted",
-                        style: TextStyle(color: Colors.grey),
+                        style: TextStyle(color: Color(0Xff4A0404),fontWeight: FontWeight.bold),
                       )
                     ],
                   ),
                   key: Key(item.toString()),
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 30, right: 30),
+                    padding: const EdgeInsets.only(left: 25, right: 25),
                     child: TaskWidget(),
                   ),
                 );
@@ -126,15 +132,16 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 Image(
                   image: AssetImage('assets/images/travel01.jpeg'),
+                  height: 200,
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 20),
                   child: Text(
                     'Currently No Trips are Added',
                     style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 12,
                       fontWeight: FontWeight.w600,
-                      color: Colors.black87,
+                      color: Color(0Xff000000),
                     ),
                   ),
                 )
