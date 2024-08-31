@@ -12,7 +12,7 @@ class _CustomAppBarState extends State<CustomAppBar> {
   @override
   Widget build(BuildContext context) {
     return const SizedBox(
-      height: 90,
+      height: 50,
       width: double.infinity,
       child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [

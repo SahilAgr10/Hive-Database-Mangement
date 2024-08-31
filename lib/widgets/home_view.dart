@@ -1,5 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
+import 'package:hive_database_management/widgets/Add_Trip/New_Trip_page.dart';
 import 'package:hive_database_management/widgets/Custom_Menu.dart';
 import 'Custome_Appbar.dart';
 import 'Task_Widget.dart';
@@ -13,22 +15,26 @@ class HomeView extends StatefulWidget {
 
 class _HomeViewState extends State<HomeView> {
   List<int> places = [];
+  //List<>
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(75)),
+        elevation: 0,
         backgroundColor: const Color(0XFF00001a),
         onPressed: () {
-          places.add(1);
-          setState(() {});
+          Navigator.push(context, CupertinoPageRoute(builder: (_)=>const NewTripPage()));
+          // places.add(1);
+          // setState(() {});
         }, // Add your onPressed function here
-        child: Icon(Icons.add,color:  Colors.white,size: 20,),
+        child: const Icon(Icons.add,color:  Colors.white,size: 20,),
       ),
       body: SliderDrawer(
         isDraggable: false,
-        appBar: const CustomAppBar(),
+        appBar: Container(),
         slider: const CustomMenu(),
         child: homePageUi(),
       ),
@@ -42,14 +48,17 @@ class _HomeViewState extends State<HomeView> {
       child: Column(
         children: [
           Container(
-            height: 110,
+            height: 200,
+            //color: Colors.cyan,
             // color: Colors.deepPurple.shade900.withOpacity(0.1),
-            child: const Row(
+            child:  Row(
               mainAxisAlignment: MainAxisAlignment.center,
+              //crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                SizedBox(
+                Container(
                   height: 25,
                   width: 25,
+                  margin: EdgeInsets.only(top: 80),
                   child: CircularProgressIndicator(
                     color: Color(0XFF002D62),
                     value: 1 / 3,
@@ -61,13 +70,13 @@ class _HomeViewState extends State<HomeView> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(left: 15, top: 20),
+                      padding: EdgeInsets.only(left: 15, top: 100),
                       child: Text(
                         "Planned Trips",
                         style: TextStyle(
                           fontSize: 40,
                           fontWeight: FontWeight.bold,
-                          color: Color(0XFF002D62),
+                          color: Color(0XFF000026),
                         ),
                       ),
                     ),
@@ -76,9 +85,9 @@ class _HomeViewState extends State<HomeView> {
                       child: Text(
                         "3 of 8 TRIPS",
                         style: TextStyle(
-                          fontSize: 12,
-                          color: Colors.grey,
-                          fontWeight: FontWeight.w500,
+                          fontSize: 15,
+                          color: Colors.black87,
+                          fontWeight: FontWeight.w400,
                         ),
                       ),
                     )
@@ -88,9 +97,9 @@ class _HomeViewState extends State<HomeView> {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.only(top: 10, right: 30,bottom: 20),
+            padding: EdgeInsets.only( right: 20),
             child: Divider(
-              thickness: 2,
+              thickness: 1,
               indent: 55,
             ),
           ),
@@ -120,8 +129,8 @@ class _HomeViewState extends State<HomeView> {
                     ],
                   ),
                   key: Key(item.toString()),
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 25, right: 25),
+                  child: const Padding(
+                    padding: EdgeInsets.only(left: 25, right: 25),
                     child: TaskWidget(),
                   ),
                 );
@@ -132,14 +141,14 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 Image(
                   image: AssetImage('assets/images/travel01.jpeg'),
-                  height: 200,
+                  height: 250,
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 20),
                   child: Text(
                     'Currently No Trips are Added',
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 15,
                       fontWeight: FontWeight.w600,
                       color: Color(0Xff000000),
                     ),
