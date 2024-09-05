@@ -8,8 +8,8 @@ class Task extends HiveObject {
       {required this.id,
         required this.title,
         required this.subtitle,
-        required this.createdAtTime,
-        required this.createdAtDate,
+        required this.startDate,
+        required this.endDate,
         required this.isCompleted});
 
   /// ID
@@ -26,11 +26,11 @@ class Task extends HiveObject {
 
   /// CREATED AT TIME
   @HiveField(3)
-  DateTime createdAtTime;
+  DateTime startDate;
 
   /// CREATED AT DATE
   @HiveField(4)
-  DateTime createdAtDate;
+  DateTime endDate;
 
   /// IS COMPLETED
   @HiveField(5)
@@ -40,15 +40,15 @@ class Task extends HiveObject {
   factory Task.create({
     required String? title,
     required String? subtitle,
-    DateTime? createdAtTime,
-    DateTime? createdAtDate,
+    DateTime? startDate,
+    DateTime? endDate,
   }) =>
       Task(
         id: const Uuid().v1(),
-        title: title ?? "",
+        title: title ?? "Frankfurt",
         subtitle: subtitle ?? "",
-        createdAtTime: createdAtTime ?? DateTime.now(),
+        startDate: startDate?? DateTime.now(),
+        endDate:endDate?? DateTime.now(),
         isCompleted: false,
-        createdAtDate: createdAtDate ?? DateTime.now(),
       );
 }

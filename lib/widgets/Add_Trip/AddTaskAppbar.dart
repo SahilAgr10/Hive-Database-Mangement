@@ -17,16 +17,16 @@ class _AddTaskAppbarState extends State<AddTaskAppbar>{
   Widget build(BuildContext context) {
     return  SizedBox(
       width: double.infinity,
-      height: 100,
+      height: 120,
       child: Row(
         children: [
           GestureDetector(
               onTap:(){
                 Navigator.pop(context);
               },
-              child: Padding(
-                padding: const EdgeInsets.only(top: 20,left: 20),
-                child: Icon(Icons.arrow_back,size: 30,),
+              child: const Padding(
+                padding: EdgeInsets.only(top: 20,left: 20),
+                child: Icon(Icons.arrow_back,size: 30,color: Color(0Xff4A0404),),
               ))
         ],
       ),

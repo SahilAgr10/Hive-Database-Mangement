@@ -15,4 +15,5 @@ class MyString {
   static const String updateTaskString = "Update Trip";
   static const String oopsMsg = "Oops!";
   static const String areYouSure = "Are You Sure?";
+  static const String descriptionText='You can share your plans here';
 }
