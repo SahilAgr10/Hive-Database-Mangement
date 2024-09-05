@@ -1,47 +1,63 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_database_management/models/task.dart';
 import 'package:hive_database_management/widgets/Add_Trip/New_Trip_page.dart';
 import 'package:hive_database_management/widgets/Custom_Menu.dart';
-import 'Custome_Appbar.dart';
+import '../main.dart';
 import 'Task_Widget.dart';
 
 class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
+
+
   @override
   State<HomeView> createState() => _HomeViewState();
 }
 
+
 class _HomeViewState extends State<HomeView> {
-  List<int> places = [];
-  //List<>
+  @override
+  void initState() {
+    super.initState();
+   // loadTasks();
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      floatingActionButton: FloatingActionButton(
+    final base = BaseWidget.of(context);
+
+    return ValueListenableBuilder(
+        valueListenable: base.dataStore.listenToTask(),
+        builder: (ctx, Box<Task> box, Widget? child) {
+        var tasks = box.values.toList();
+        return Scaffold(
+        backgroundColor: Colors.blueGrey.shade900,
+        floatingActionButton: FloatingActionButton(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(75)),
         elevation: 0,
         backgroundColor: const Color(0XFF00001a),
         onPressed: () {
-          Navigator.push(context, CupertinoPageRoute(builder: (_)=>const NewTripPage()));
-          // places.add(1);
-          // setState(() {});
-        }, // Add your onPressed function here
+          Navigator.push(context, CupertinoPageRoute(builder: (_)=> NewTripPage(taskControllerForTitle: null, task: null,)));
+          }, // Add your onPressed function here
         child: const Icon(Icons.add,color:  Colors.white,size: 20,),
-      ),
-      body: SliderDrawer(
+        ),
+        body: SliderDrawer(
         isDraggable: false,
         appBar: Container(),
         slider: const CustomMenu(),
-        child: homePageUi(),
-      ),
-    );
-  }
+        child: homePageUi(tasks,base),
+        ),
+      );
+    }
+  );
+}
 
-  Widget homePageUi() {
+  Widget homePageUi(List<Task> tasks, BaseWidget base) {
     return SizedBox(
       height: double.infinity,
       width: double.infinity,
@@ -58,14 +74,14 @@ class _HomeViewState extends State<HomeView> {
                 Container(
                   height: 25,
                   width: 25,
-                  margin: EdgeInsets.only(top: 80),
-                  child: CircularProgressIndicator(
+                  margin: const EdgeInsets.only(top: 80),
+                  child: const CircularProgressIndicator(
                     color: Color(0XFF002D62),
                     value: 1 / 3,
                     backgroundColor: Colors.grey,
                   ),
                 ),
-                Column(
+                const Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -104,15 +120,16 @@ class _HomeViewState extends State<HomeView> {
             ),
           ),
           Expanded(
-            child: places.isNotEmpty
+            child: tasks.isNotEmpty
                 ? ListView.builder(
-              itemCount: places.length,
+              physics: const BouncingScrollPhysics(),
+              itemCount: tasks.length,
               itemBuilder: (context, index) {
-                final item = places[index];
+                var item = tasks[index];
                 return Dismissible(
                   direction: DismissDirection.horizontal,
                   onDismissed: (direction) {
-                    places.removeAt(index);
+                    base.dataStore.deleteTask(task: item);
                     setState(() {});
                   },
                   background: const Row(
@@ -129,9 +146,9 @@ class _HomeViewState extends State<HomeView> {
                     ],
                   ),
                   key: Key(item.toString()),
-                  child: const Padding(
-                    padding: EdgeInsets.only(left: 25, right: 25),
-                    child: TaskWidget(),
+                  child:  Padding(
+                    padding: const EdgeInsets.only(left: 25, right: 25),
+                    child: TaskWidget(task:tasks[index]),
                   ),
                 );
               },
@@ -141,7 +158,7 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 Image(
                   image: AssetImage('assets/images/travel01.jpeg'),
-                  height: 250,
+                  height: 200,
                 ),
                 Padding(
                   padding: EdgeInsets.only(top: 20),
