@@ -4,7 +4,7 @@ class MyString {
   static const String doneAllTask = "You Have Done All Trips!👌";
   static const String addNewTask = "Add New Destination 🌍";
   static const String updateCurrentTask = "Update ";
-  static const String taskString = "Task";
+  static const String dString = "It’s the perfect time to pay a visit to \nlocations that are usually swarming with tourists \nand enjoy some serious natural beauty, luxury hotels...";
   static const String titleOfTitleTextField = "What are you planing😇?";
   static const String addNote = 'Add Your Preferred Destination';
   static const String timeString = "Time";
